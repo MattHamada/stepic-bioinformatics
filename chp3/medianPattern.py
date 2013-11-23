@@ -43,5 +43,5 @@ dnas = ['TTACCTTCTTGGGTCGCCCAGATTATAATCCGTGAGAGAAAC',
 ##'acggcgttcg',
 ##'ccctaaagag',
 ##'cgtcagaggt',]
-a = medianPattern(dnas, 6)
-print a
+#a = medianPattern(dnas, 6)
+#print a

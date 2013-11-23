@@ -21,22 +21,22 @@ def profileMostProb(seq, k, profile):
 
 
 
-profile = []
-f = open('probPattern.txt', 'r')
-seq = f.readline().strip()
-k = int(f.readline())
-f.readline()
-lines = f.read().splitlines()
-for line in lines:
-    lArray = line.split()
-    temp = {}
-    temp['A'] = float(lArray[0])
-    temp['C'] = float(lArray[1])
-    temp['G'] = float(lArray[2])
-    temp['T'] = float(lArray[3])
-    profile.append(temp)
-#print profile
-
-a = profileMostProb(seq, k, profile)
-print a
-        
+##profile = []
+##f = open('probPattern.txt', 'r')
+##seq = f.readline().strip()
+##k = int(f.readline())
+##f.readline()
+##lines = f.read().splitlines()
+##for line in lines:
+##    lArray = line.split()
+##    temp = {}
+##    temp['A'] = float(lArray[0])
+##    temp['C'] = float(lArray[1])
+##    temp['G'] = float(lArray[2])
+##    temp['T'] = float(lArray[3])
+##    profile.append(temp)
+###print profile
+##
+##a = profileMostProb(seq, k, profile)
+##print a
+##        
