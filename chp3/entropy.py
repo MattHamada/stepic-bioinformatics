@@ -35,7 +35,7 @@ for hash in profileMatrix:
     for key in hash:
         if not hash[key]  == 0:
             entropy += hash[key] * math.log(hash[key],2)
-    entropies.append(entropy)
+    entropies.append(entropy)   
 
 print sum(entropies)
                 
