@@ -1,7 +1,7 @@
 from medianPattern import medianPattern
-from profileMostProbable import profileMostProb
 def hammingDistance(kmers, motif):
     score = 0
+    #print kmers, motif
     for kmer in kmers:
         for i in range(len(kmer)):
             if not kmer[i] == motif[i]:
@@ -9,42 +9,130 @@ def hammingDistance(kmers, motif):
     return score
 
 def makeProfile(kmers):
-    counts = []
+      #ATGC order
+    counts = [[],[],[],[]]
     for i in range(len(kmers[0])):
-        counts.append({'A': 0, 'T': 0, 'G': 0, 'C': 0})
-    for kmer in kmers:
-        for i in range(len(kmer)):
-            counts[i][kmer[i]] += 1
-            #ATGC order
+        A = 0.0
+        T = 0.0
+        G = 0.0
+        C = 0.0
+        for j in range(len(kmers)):
+            if kmers[j][i] == 'A':
+                 A += 1.0
+            if kmers[j][i] == 'T':
+                 T += 1.0
+            if kmers[j][i] == 'G':
+                 G += 1.0
+            if kmers[j][i] == 'C':
+                 C += 1.0
+        counts[0].append(A)
+        counts[1].append(T)
+        counts[2].append(G)
+        counts[3].append(C)
     profile = [[],[],[],[]]
-    print counts
-    for hash in counts:
-        for key in hash:
-            profile[0].append(hash['A'] / float(len(kmers)))
-            profile[1].append(hash['T'] / float(len(kmers)))
-            profile[2].append(hash['G'] / float(len(kmers)))
-            profile[3].append(hash['C'] / float(len(kmers)))
-    print profile
+    for i in range(len(counts[0])):
+        sum = 0
+        for j in range(len(counts)):
+            sum += counts[j][i]
+        profile[0].append(counts[0][i] / sum)
+        profile[1].append(counts[1][i] / sum)
+        profile[2].append(counts[2][i] / sum)
+        profile[3].append(counts[3][i] / sum)
+    
     return profile
-        
-        
 
+def makePseudoProfile(kmers):
+    counts = [[],[],[],[]]
+    for i in range(len(kmers[0])):
+        A = 1.0
+        T = 1.0
+        G = 1.0
+        C = 1.0
+        for j in range(len(kmers)):
+            if kmers[j][i] == 'A':
+                 A += 1.0
+            if kmers[j][i] == 'T':
+                 T += 1.0
+            if kmers[j][i] == 'G':
+                 G += 1.0
+            if kmers[j][i] == 'C':
+                 C += 1.0
+        counts[0].append(A)
+        counts[1].append(T)
+        counts[2].append(G)
+        counts[3].append(C)
+    profile = [[],[],[],[]]
+    for i in range(len(counts[0])):
+        sum = 0
+        for j in range(len(counts)):
+            sum += counts[j][i]
+        profile[0].append(counts[0][i] / sum)
+        profile[1].append(counts[1][i] / sum)
+        profile[2].append(counts[2][i] / sum)
+        profile[3].append(counts[3][i] / sum)
+    
+    return profile
+    
+        
+        
+def profileMostProb(seq, k, profile):
+    bestSeq = ''
+    bestProb = -1
+    for i in range(len(seq)-k+1):
+        kmer = seq[i:i+k]
+        #print kmer
+        prob = 1
+        for j in range(k):
+            #print profile
+            if kmer[j] == 'A':
+                prob *= profile[0][j]
+            if kmer[j] == 'T':
+                prob *= profile[1][j]
+            if kmer[j] == 'G':
+                prob *= profile[2][j]
+            if kmer[j] == 'C':
+                prob *= profile[3][j]
+
+        if prob > bestProb:
+            bestProb = prob
+            bestSeq = kmer
+    return bestSeq
 
 def greedyMotif(dnas, k, t):
     baselineKmers = []
     for dna in dnas:
         baselineKmers.append(dna[0:k])
+    #print baselineKmers
     consensusKmer = medianPattern(baselineKmers, k)
+    
     baselineScore = hammingDistance(baselineKmers, consensusKmer)
     #print baselineScore
 
-    kmers = []
-    dnaUsed = 1
+    
+    bestcol = baselineKmers
+    bestscore = baselineScore
     for i in range(len(dnas[0])-k+1):
-         kmers.append(dna[0][i:i+k])
-         profile = makeProfile(kmers)
-         print dnas[dnaUsed], k, profile
-         mostProb = profileMostProb(dnas[dnaUsed] , k, profile)
+        collection = []
+        kmers = []
+        kmers.append(dnas[0][i:i+k])
+        collection.append(dnas[0][i:i+k])
+        for j in range(1,len(dnas)):    
+             #print kmers
+
+            #change here from pseudo/nonpseudo
+             profile = makePseudoProfile(collection)
+             mostProb = profileMostProb(dnas[j] , k, profile)
+             collection.append(mostProb)
+        
+        colconsensus = medianPattern(collection, k)
+        colscore = hammingDistance(collection, colconsensus)
+        #print collection, colscore, colconsensus
+        if colscore < bestscore:
+            bestscore = colscore
+            bestcol = collection
+    return bestcol
+             
+             
          
 
 
@@ -54,7 +142,14 @@ dnas = ['GGCGTTCAGGCA',
               'CACGTCAATCAC',
               'CAATAATATTCG',]
 
-#a = makeProfile(dnas)
-#print a
-greedyMotif(dnas, 3, 5)
+##f = open('greedyinput.txt', 'r')
+##line = f.readline().strip().split(' ')
+##k = int(line[0])
+##t  = int(line[1])
+##
+##dnas = f.read().splitlines()
+
+print greedyMotif(dnas,3,5)
+
+#f.close()
 

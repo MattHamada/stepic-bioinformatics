@@ -28,20 +28,34 @@ def medianPattern(dnas, k):
             bestPattern = pattern
         #print bestScore
     return bestPattern
-dnas = ['TTACCTTCTTGGGTCGCCCAGATTATAATCCGTGAGAGAAAC',
-'TACAATCTTTTGCGCAGCTTACCTTTGTTTAGGCATCGACCC',
-'TTAACTGCTAGTCCGCATAAGATTCCTTTAAGACTATGCCTA',
-'TCTCTGCGCCGTGCCGACTTACCTGCGGCAGGCGCGTTAAAC',
-'TTACCTTACTCTGGACCAGCATATAGCAAGCGAAAACGCGAC',
-'TTATCTGTGTCGCGGGGACTGAAGCCTCCGTTCACCTAAATC',
-'ATTAATTTAACTCCTATGAAATGAACCATCTCTTTCTAAGGT',
-'GAAGGAATTAATAGTGGGAAGTCCCTCTTGTAAGACTTACCT',
-'TGGGCACCTGGATAATGGCCAGACTTAGCTCCGTATCTAGAA',
-'TCCTTGTTACAGACTGGGAAGCCAGGATAATTATCTGTAAAG']
+dnas = ['GATGGACCGGGC',
+             'TAAAAAGGTATA',
+             'AACCACGAGTAC',
+             'TGTCATGTGCGG',
+             'AACCTAAACCCT',
+             'GTGCCCGATATG',
+             'TAGTCTTCGAGG',
+             'AGGAGACGTGTT',
+             'TGTGGGGATCGT',
+             'CGCAGTGCACTA',
+             'TACTCGTAACTT',
+             'GCTCTAGTACGC',
+             'GAGACGGTCGTA',
+             'GATCGGTGGCAG',
+             'GTAGGTATCACC',
+             'GTGGCTATCGCT',
+             'TGAGCAGACCCG',
+             'AGTGATCTGAGC',
+             'CAAAATGGGAGT',
+             'GTTGGTATCACC',
+             'CCTCGGAAAACG',
+             'GGCGGCTCCATC',
+             'TACTAGTATAAG',
+             'GTGGTTATCACC',
+             'CATCACGCAATG']
 ##dnas = ['ttaccttaac',
 ##'gatatctgtc',
 ##'acggcgttcg',
 ##'ccctaaagag',
 ##'cgtcagaggt',]
-#a = medianPattern(dnas, 6)
-#print a
+#print medianPattern(dnas, 12)
