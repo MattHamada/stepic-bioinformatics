@@ -1,6 +1,6 @@
 import random
-from greedyMotifSearch import makePseudoProfile, hammingDistance, profileMostProb
-from medianPattern import medianPattern
+from greedyMotifSearch import makePseudoProfile, hammingDistance, profileMostProb, medianPattern
+#from medianPattern import medianPattern
 
 
 def getMotifs(profile, dnas, k):
@@ -11,27 +11,24 @@ def getMotifs(profile, dnas, k):
             
 
 def randomMotifs(dnas, k, t):
-    finalBestMotifs = []
-    for i in range(1000):
-        bestMotifs = []
+    bestMotifs = []
+    for i in range(2000):
         for dna in dnas:        
             length = len(dna)
             startBase = random.randint(0, length-k)
             bestMotifs.append(dna[startBase:startBase+k])
-        bestconsensus = medianPattern(bestMotifs, k)
+        bestconsensus = medianPattern(bestMotifs)
         bestScore = hammingDistance(bestMotifs, bestconsensus)
         while True:
             profile = makePseudoProfile(bestMotifs)
             motifs = getMotifs(profile, dnas, k)
-            consensus = medianPattern(motifs, k)
+            consensus = medianPattern(motifs)
             score = hammingDistance(motifs, consensus)
             if score < bestScore:
                 bestMotifs = motifs
                 bestconsensus = consensus
                 bestScore = score
             else:
-                if bestScore < hammingDistance(finalBestMotifs, medianPattern(finalBestMotifs, k)):
-                    finalBestMotifs = bestMotifs
                 break
     print bestMotifs
 
@@ -41,7 +38,15 @@ dnas = ['CGCCCCTCTCGGGGGTGTTCAGTAAACGGCCA',
               'TAGATCAAGTTTCAGGTGCACGTCGGTGAACC',
               'AATCCACCAGCTCCACGTGCAATGTTGGCCTA']
 
-randomMotifs(dnas, 8, 5)
+f = open('randomMotifInput.txt', 'r')
+line = f.readline().strip().split(' ')
+k = int(line[0])
+t  = int(line[1])
+
+dnas = f.read().splitlines()
+
+
+randomMotifs(dnas, k, t)
         
 
 

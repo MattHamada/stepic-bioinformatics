@@ -171,17 +171,17 @@ def greedyMotif(dnas, k, t):
 ##              'CACGTCAATCAC',
 ##              'CAATAATATTCG',]
 
-f = open('greedyinput.txt', 'r')
-line = f.readline().strip().split(' ')
-k = int(line[0])
-t  = int(line[1])
-
-dnas = f.read().splitlines()
-
-a = greedyMotif(dnas,k,t)
-
-for i in a:
-    print i
-
-f.close()
+##f = open('greedyinput.txt', 'r')
+##line = f.readline().strip().split(' ')
+##k = int(line[0])
+##t  = int(line[1])
+##
+##dnas = f.read().splitlines()
+##
+##a = greedyMotif(dnas,k,t)
+##
+##for i in a:
+##    print i
+##
+##f.close()
 

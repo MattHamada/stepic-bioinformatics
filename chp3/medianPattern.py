@@ -14,7 +14,9 @@ def seqScore(dna, pattern):
     return bestScore
 
 
-def medianPattern(dnas, k):
+    
+
+def medianPatternOld(dnas, k):
     bestScore = 10000
     bestPattern = ''
     patterns = itertools.product('ATGC', repeat=k)
