@@ -8,3 +8,5 @@ def occurances(ksize, N, L):
 #probX: probability of X occuring in sequence
 def occurances_differentprob(ksize, N, L, numA, probA, numT, probT, numC, probC, numG, probG):
     return N*(L-ksize+1)*((probA**numA)*(probT**numT)*(probC**numC)*(probG**numG))
+
+print occurances(15, 10, 600)
