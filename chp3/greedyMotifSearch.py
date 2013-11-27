@@ -1,4 +1,33 @@
-from medianPattern import medianPattern
+#from medianPattern import medianPattern
+def medianPattern(dnas):
+    pattern = []
+    for i in range(len(dnas[0])):
+        temp = [0,0,0,0]
+        for j in range(len(dnas)):
+            #print dnas, i, j
+            if dnas[j][i] == 'A':
+                temp[0] += 1
+            elif dnas[j][i] == 'T':
+                temp[1] += 1
+            elif dnas[j][i] == 'G':
+                temp[2] += 1
+            elif dnas[j][i] == 'C':
+                temp[3] += 1
+        highestnum = max(temp)
+        if temp.index(highestnum) == 0:
+            pattern.append('A')
+        elif temp.index(highestnum) == 1:
+            pattern.append('T')
+        elif temp.index(highestnum) == 2:
+            pattern.append('G')
+        elif temp.index(highestnum) == 3:
+            pattern.append('C')
+        
+    return ''.join(pattern)
+#adjust to go of seqs not profile
+        
+            
+
 def hammingDistance(kmers, motif):
     score = 0
     #print kmers, motif
@@ -103,7 +132,7 @@ def greedyMotif(dnas, k, t):
     for dna in dnas:
         baselineKmers.append(dna[0:k])
     #print baselineKmers
-    consensusKmer = medianPattern(baselineKmers, k)
+    consensusKmer = medianPattern(baselineKmers)
     
     baselineScore = hammingDistance(baselineKmers, consensusKmer)
     #print baselineScore
@@ -124,7 +153,7 @@ def greedyMotif(dnas, k, t):
              mostProb = profileMostProb(dnas[j] , k, profile)
              collection.append(mostProb)
         
-        colconsensus = medianPattern(collection, k)
+        colconsensus = medianPattern(collection)
         colscore = hammingDistance(collection, colconsensus)
         #print collection, colscore, colconsensus
         if colscore < bestscore:
@@ -136,20 +165,23 @@ def greedyMotif(dnas, k, t):
          
 
 
-dnas = ['GGCGTTCAGGCA',
-              'AAGAATCAGTCA',
-              'CAAGGAGTTCGC',
-              'CACGTCAATCAC',
-              'CAATAATATTCG',]
+##dnas = ['GGCGTTCAGGCA',
+##              'AAGAATCAGTCA',
+##              'CAAGGAGTTCGC',
+##              'CACGTCAATCAC',
+##              'CAATAATATTCG',]
 
-##f = open('greedyinput.txt', 'r')
-##line = f.readline().strip().split(' ')
-##k = int(line[0])
-##t  = int(line[1])
-##
-##dnas = f.read().splitlines()
+f = open('greedyinput.txt', 'r')
+line = f.readline().strip().split(' ')
+k = int(line[0])
+t  = int(line[1])
 
-print greedyMotif(dnas,3,5)
+dnas = f.read().splitlines()
 
-#f.close()
+a = greedyMotif(dnas,k,t)
+
+for i in a:
+    print i
+
+f.close()
 
