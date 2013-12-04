@@ -9,8 +9,12 @@ def overlapGraph(kmers):
                 overlaps[kmer].append(kmerCandidate)
 
     fout = open('overlapGraphout.txt', 'w')
-    
+
+    foundmers = []
     for kmer in overlaps.keys():
+        foundmers.append(kmer)
+    foundmers.sort()
+    for kmer in foundmers:
         if not len(overlaps[kmer]) == 0:
             values = ' '.join(overlaps[kmer])
             fout.write(kmer + " -> " + values + '\n')
